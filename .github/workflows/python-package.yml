@@ -12,7 +12,7 @@ jobs:
     name: Uploading wheels
     steps:
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
           architecture: x64
@@ -22,7 +22,7 @@ jobs:
           python -m pip install twine
           
       - name: Download all the wheels
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
           
       - name: Publish wheels
         env:
@@ -39,7 +39,7 @@ jobs:
     name: ${{ matrix.manylinux-version }} using Docker on M1 Mac
     steps:
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Pull Docker Images
         run: |
@@ -72,7 +72,7 @@ jobs:
          aimhubio/aimrocks:${{ matrix.manylinux-version }} \
          bash -e /opt/aimrocks/docker/audit-wheels.sh
          
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: manylinux_dist/*.whl
           
@@ -90,10 +90,10 @@ jobs:
           sudo systemctl enable --now docker
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
           architecture: x64
@@ -137,7 +137,7 @@ jobs:
          aimhubio/aimrocks:${{ matrix.manylinux-version }} \
          bash -e /opt/aimrocks/docker/audit-wheels.sh
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: manylinux_dist/*.whl
 
@@ -159,7 +159,7 @@ jobs:
           rm -rf $AIM_DEP_DIR/*
 
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Building ZLib
         run: |
@@ -212,6 +212,6 @@ jobs:
         run: |
           arch -${{matrix.arch}} $PYTHON -m build
           
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.whl
