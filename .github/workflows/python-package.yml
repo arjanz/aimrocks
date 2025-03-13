@@ -31,7 +31,7 @@ jobs:
           python -m twine upload -u __token__ -p "${PYPI_PASSWORD}" artifact/*.whl
 
   linux-dist-aarch64:
-    runs-on: m1
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -142,7 +142,7 @@ jobs:
           path: manylinux_dist/*.whl
 
   macos-deps:
-    runs-on: m1
+    runs-on: macos-14
     strategy:
       fail-fast: true
       matrix:
@@ -189,7 +189,7 @@ jobs:
 
 
   macos-dist:
-    runs-on: m1
+    runs-on: macos-14
     needs: macos-deps
     strategy:
       fail-fast: true
